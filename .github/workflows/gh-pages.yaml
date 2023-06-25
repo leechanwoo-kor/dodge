@@ -1,8 +1,8 @@
-name: dodge
+name: Gh-Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -13,14 +13,5 @@ jobs:
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/flutter-gh-pages@v8
         with:
-          channel: 'main'
+          baseHref: /dodge/
           webRenderer: canvaskit
-      - run: flutter pub get
-      - run: flutter config --enable-web
-      - run: flutter build web --base-href "/dodge/"
-      
-      - run: git config user.name github-actions
-      - run: git config user.email github-actions@github.com
-      - run: git --work-tree build/web add --all
-      - run: git commit -m "Automatic deployment by github-actions"
-      - run: git push origin HEAD:gh_pages --force
