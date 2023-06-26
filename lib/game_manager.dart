@@ -1,11 +1,12 @@
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame/events.dart';
 import 'package:dodge/global.dart';
 import 'package:dodge/menu_overlay.dart';
 import 'package:dodge/missile.dart';
 import 'package:dodge/spaceship.dart';
 
-class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDetector {
+class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDetector, HasKeyboardHandlerComponents {
   late SpaceShip spaceShip;
   late MenuOverlay menu;
   final List<Missile> missiles = [];
