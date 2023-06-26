@@ -6,7 +6,7 @@ import 'package:dodge/menu_overlay.dart';
 import 'package:dodge/missile.dart';
 import 'package:dodge/spaceship.dart';
 
-class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDetector, HasKeyboardHandlerComponents {
+class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDetector, HasKeyboardHandlerComponents, KeyboardHandler {
   late SpaceShip spaceShip;
   late MenuOverlay menu;
   final List<Missile> missiles = [];
@@ -28,6 +28,16 @@ class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDet
     add(spaceShip);
 
     return super.onLoad();
+  }
+
+  @override
+  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (keysPressed.contains(LogicalKeyboardKey.space) ||
+        keysPressed.contains(LogicalKeyboardKey.enter)) {
+      menu.gameStatusButtonClick();
+    }
+
+    return true;
   }
 
   @override
