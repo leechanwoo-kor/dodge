@@ -29,8 +29,7 @@ class Missile extends SpriteComponent with CollisionCallbacks, HasGameRef<GameMa
 
     reloadSprite();
 
-    hitbox = CircleHitbox(radius: 2)
-      ..renderShape = true;
+    hitbox = CircleHitbox(radius: 2);
     add(hitbox);
 
     return super.onLoad();

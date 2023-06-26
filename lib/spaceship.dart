@@ -30,12 +30,12 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
     add(PolygonHitbox.relative(
       [
         Vector2(0.0, 0.7),
-        Vector2(-0.8, 0.0),
-        Vector2(0.0, 0.8),
-        Vector2(0.0, -0.5),
+        Vector2(0.8, 0.4),
+        Vector2(0.0, -0.7),
+        Vector2(-0.8, 0.4),
       ],
       parentSize: Vector2.all(32),
-    )..renderShape = true);
+    ));
 
     return super.onLoad();
   }
@@ -62,17 +62,8 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
         ? 1
         : 0;
 
-    if (keysPressed.contains(LogicalKeyboardKey.space) ||
-        keysPressed.contains(LogicalKeyboardKey.enter)) {
-      if (Global.isRun()) {
-        Global.status = GameStatus.pause;
-      }
-      if (Global.isPause()) {
-        Global.status = GameStatus.run;
-      }
-    }
-
     return true;
+
   }
 
   @override
@@ -91,9 +82,16 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
     if (Global.isPause() || Global.isOver()) return;
     
     velocity.x = horizontalDirection * moveSpeed;
-    position.x += velocity.x * dt;
+    double newX = position.x + velocity.x * dt;
+    if (newX >= size.x && newX <= gameRef.size.x - size.x) { 
+      position.x = newX;
+    }
+
     velocity.y = verticalDirection * moveSpeed;
-    position.y += velocity.y * dt;
+    double newY = position.y + velocity.y * dt;
+    if (newY >= size.y && newY <= gameRef.size.y - size.y) {
+      position.y = newY;
+    }
     
     super.update(dt);
   }
@@ -103,28 +101,6 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
     if (other is Missile) {
       super.onCollisionStart(points, other);
       Global.status = GameStatus.gameover;
-    }
-
-    if (other is ScreenHitbox) {
-      super.onCollisionStart(points, other);
-      final collisionPoint = points.first;
-
-      // Left Side Collision
-      if (collisionPoint.x < 0) {
-        position.x = 0;
-      }
-      // Right Side Collision
-      if (collisionPoint.x > gameRef.size.x) {
-        position.x = gameRef.size.x;
-      }
-      // Top Side Collision
-      if (collisionPoint.y < 0) {
-        position.y = 0;
-      }
-      // Bottom Side Collision
-      if (collisionPoint.y > gameRef.size.y) {
-        position.y = gameRef.size.y;
-      }
     }
   }
 

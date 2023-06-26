@@ -61,7 +61,7 @@ class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDet
   void onMouseMove(PointerHoverInfo info) {
     if (Global.isPause() || Global.isOver()) return;
 
-    spaceShip.move(info.eventPosition.game);
+    // spaceShip.move(info.eventPosition.game);
   }
 
   void restart() {
