@@ -13,6 +13,9 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
   final Vector2 velocity = Vector2.zero();
   final double moveSpeed = 100;
 
+  int horizontalDirection = 0;
+  int verticalDirection = 0;
+
   SpaceShip()
     : super(
         size: Vector2.all(32),
