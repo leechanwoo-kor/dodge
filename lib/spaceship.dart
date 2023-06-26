@@ -62,6 +62,16 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
         ? 1
         : 0;
 
+    if (keysPressed.contains(LogicalKeyboardKey.space) ||
+        keysPressed.contains(LogicalKeyboardKey.enter)) {
+      if (Global.isRun()) {
+        Global.status = GameStatus.pause;
+      }
+      if (Global.isPause()) {
+        Global.status = GameStatus.run;
+      }
+    }
+
     return true;
   }
 
@@ -78,14 +88,14 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
 
   @override
   void update(double dt) {
+    if (Global.isPause() || Global.isOver()) return;
+    
     velocity.x = horizontalDirection * moveSpeed;
     position.x += velocity.x * dt;
     velocity.y = verticalDirection * moveSpeed;
     position.y += velocity.y * dt;
     
     super.update(dt);
-
-    if (Global.isPause() || Global.isOver()) return;
   }
 
   @override
