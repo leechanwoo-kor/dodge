@@ -34,7 +34,7 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
         Vector2(0.0, 0.8),
         Vector2(0.0, -0.5),
       ],
-      parentSize: size,
+      parentSize: Vector2.all(32),
     )..renderShape = true);
 
     return super.onLoad();
