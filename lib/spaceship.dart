@@ -1,14 +1,17 @@
 import 'package:dodge/game_manager.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/services.dart';
 import 'package:dodge/global.dart';
 import 'package:dodge/missile.dart';
 
-class SpaceShip extends SpriteComponent with CollisionCallbacks, HasGameRef<GameManager> {
+class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler, HasGameRef<GameManager> {
 
   bool isLoadedFirst = false;
   bool isTouched = false;
-
+  
+  final Vector2 velocity = Vector2.zero();
+  final double moveSpeed = 100;
 
   SpaceShip()
     : super(
@@ -27,6 +30,31 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, HasGameRef<Game
   }
 
   @override
+  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    horizontalDirection = 0;
+    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyA) ||
+            keysPressed.contains(LogicalKeyboardKey.arrowLeft))
+        ? -1
+        : 0;
+    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyD) ||
+            keysPressed.contains(LogicalKeyboardKey.arrowRight))
+        ? 1
+        : 0;
+    
+    verticalDirection = 0;
+    verticalDirection += (keysPressed.contains(LogicalKeyboardKey.keyW) ||
+            keysPressed.contains(LogicalKeyboardKey.arrowUp))
+        ? -1
+        : 0;
+    verticalDirection += (keysPressed.contains(LogicalKeyboardKey.keyS) ||
+            keysPressed.contains(LogicalKeyboardKey.arrowDown))
+        ? 1
+        : 0;
+
+    return true;
+  }
+
+  @override
   void onGameResize(Vector2 gameSize) {
     super.onGameResize(gameSize);
 
@@ -39,6 +67,11 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, HasGameRef<Game
 
   @override
   void update(double dt) {
+    velocity.x = horizontalDirection * moveSpeed;
+    position.x += velocity * dt;
+    velocity.y = vertitalDirection * moveSpeed;
+    position.y += velocity * dt;
+    
     super.update(dt);
 
     if (Global.isPause() || Global.isOver()) return;
