@@ -107,7 +107,7 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
 
     if (other is ScreenHitbox) {
       super.onCollisionStart(points, other);
-      final collisionPoint = intersectionPoints.first;
+      final collisionPoint = points.first;
 
       // Left Side Collision
       if (collisionPoint.x < 0) {
