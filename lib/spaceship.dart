@@ -111,23 +111,19 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
 
       // Left Side Collision
       if (collisionPoint.x < 0) {
-        velocity.x = -velocity.x;
-        velocity.y = velocity.y;
+        position.x = 0;
       }
       // Right Side Collision
       if (collisionPoint.x > gameRef.size.x) {
-        velocity.x = -velocity.x;
-        velocity.y = velocity.y;
+        position.x = gameRef.size.x;
       }
       // Top Side Collision
       if (collisionPoint.y < 0) {
-        velocity.x = velocity.x;
-        velocity.y = -velocity.y;
+        position.y = 0;
       }
       // Bottom Side Collision
       if (collisionPoint.y > gameRef.size.y) {
-        velocity.x = velocity.x;
-        velocity.y = -velocity.y;
+        position.y = gameRef.size.y;
       }
     }
   }
