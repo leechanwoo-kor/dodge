@@ -31,16 +31,6 @@ class GameManager extends FlameGame with HasCollisionDetection, MouseMovementDet
   }
 
   @override
-  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (keysPressed.contains(LogicalKeyboardKey.space) ||
-        keysPressed.contains(LogicalKeyboardKey.enter)) {
-      menu.gameStatusButtonClick();
-    }
-
-    return true;
-  }
-
-  @override
   void update(double dt) {
     super.update(dt);
 
