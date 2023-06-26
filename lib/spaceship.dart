@@ -68,9 +68,9 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
   @override
   void update(double dt) {
     velocity.x = horizontalDirection * moveSpeed;
-    position.x += velocity * dt;
+    position.x += velocity.x * dt;
     velocity.y = vertitalDirection * moveSpeed;
-    position.y += velocity * dt;
+    position.y += velocity.y * dt;
     
     super.update(dt);
 
