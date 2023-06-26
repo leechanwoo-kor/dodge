@@ -27,7 +27,11 @@ class SpaceShip extends SpriteComponent with CollisionCallbacks, KeyboardHandler
     final starImage = game.images.fromCache('ship.png');
     sprite = Sprite(starImage);
 
-    add(RectangleHitbox(collisionType: CollisionType.passive));
+    add(PolygonHitbox(collisionType: CollisionType.passive,
+                       relative: [ Vector2(0.0, 0.7), // Middle of top wall
+                                  Vector2(0.9, 0.0), // Middle of right wall
+                                  Vector2(0.0, -0.5), // Middle of bottom wall
+                                  Vector2(-0.9, 0.0), // Middle of left wall],));
 
     return super.onLoad();
   }
